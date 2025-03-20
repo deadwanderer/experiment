@@ -1,0 +1,3 @@
+# SDL3 bindings experiment
+
+Making Odin-idiomatic SDL3 bindings, for (some) fun and (no) profit...
