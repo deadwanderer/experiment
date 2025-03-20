@@ -273,15 +273,15 @@ Scancode :: enum c.int {
 	KP_OCTAL             = 219,
 	KP_DECIMAL           = 220,
 	KP_HEXADECIMAL       = 221,
-	LCTRL                = 224,
-	LSHIFT               = 225,
-	LALT                 = 226, /**< alt, option */
-	LGUI                 = 227, /**< windows, command (apple), meta */
-	RCTRL                = 228,
-	RSHIFT               = 229,
-	RALT                 = 230, /**< alt gr, option */
-	RGUI                 = 231, /**< windows, command (apple), meta */
-	MODE                 = 257, /**< I'm not sure if this is really not covered
+	LCtrl                = 224,
+	LShift               = 225,
+	LAlt                 = 226, /**< alt, option */
+	LGui                 = 227, /**< windows, command (apple), meta */
+	RCtrl                = 228,
+	RShift               = 229,
+	RAlt                 = 230, /**< alt gr, option */
+	RGui                 = 231, /**< windows, command (apple), meta */
+	Mode                 = 257, /**< I'm not sure if this is really not covered
 	                *   by any of the above, but since there's a
 	                *   special SDL_KMOD_MODE for it I'm adding it here
 	                */

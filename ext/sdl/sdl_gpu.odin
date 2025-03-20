@@ -777,7 +777,7 @@ foreign lib {
 	@(link_name = "SDL_GPUSupportsProperties")
 	supports_properties :: proc(props: Properties_ID) -> bool ---
 	@(link_name = "SDL_CreateGPUDevice")
-	create_device :: proc(format_flags: Shader_Format, debug_mode: bool, name: cstring) -> ^Device ---
+	create_device :: proc(format_flags: Shader_Format, debug_mode: bool, name: cstring = nil) -> ^Device ---
 	@(link_name = "SDL_CreateGPUDeviceWithProperties")
 	create_device_with_properties :: proc(props: Properties_ID) -> ^Device ---
 	@(link_name = "SDL_DestroyGPUDevice")
