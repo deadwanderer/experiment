@@ -18,172 +18,172 @@ Fence :: struct {}
 
 
 Primitive_Type :: enum c.int {
-	TRIANGLELIST, /**< A series of separate triangles. */
-	TRIANGLESTRIP, /**< A series of connected triangles. */
-	LINELIST, /**< A series of separate lines. */
-	LINESTRIP, /**< A series of connected lines. */
-	POINTLIST, /**< A series of separate points. */
+	Triangle_List, /**< A series of separate triangles. */
+	Triangle_Strip, /**< A series of connected triangles. */
+	Line_List, /**< A series of separate lines. */
+	Line_Strip, /**< A series of connected lines. */
+	Point_List, /**< A series of separate points. */
 }
 
 Load_Op :: enum c.int {
-	LOAD, /**< The previous contents of the texture will be preserved. */
-	CLEAR, /**< The contents of the texture will be cleared to a color. */
-	DONT_CARE, /**< The previous contents of the texture need not be preserved. The contents will be undefined. */
+	Load, /**< The previous contents of the texture will be preserved. */
+	Clear, /**< The contents of the texture will be cleared to a color. */
+	Dont_Care, /**< The previous contents of the texture need not be preserved. The contents will be undefined. */
 }
 
 Store_Op :: enum c.int {
-	STORE, /**< The contents generated during the render pass will be written to memory. */
-	DONT_CARE, /**< The contents generated during the render pass are not needed and may be discarded. The contents will be undefined. */
-	RESOLVE, /**< The multisample contents generated during the render pass will be resolved to a non-multisample texture. The contents in the multisample texture may then be discarded and will be undefined. */
-	RESOLVE_AND_STORE, /**< The multisample contents generated during the render pass will be resolved to a non-multisample texture. The contents in the multisample texture will be written to memory. */
+	Store, /**< The contents generated during the render pass will be written to memory. */
+	Dont_Care, /**< The contents generated during the render pass are not needed and may be discarded. The contents will be undefined. */
+	Resolve, /**< The multisample contents generated during the render pass will be resolved to a non-multisample texture. The contents in the multisample texture may then be discarded and will be undefined. */
+	Resolve_And_Store, /**< The multisample contents generated during the render pass will be resolved to a non-multisample texture. The contents in the multisample texture will be written to memory. */
 }
 
 Index_Element_Size :: enum c.int {
-	_16BIT, /**< The index elements are 16-bit. */
-	_32BIT, /**< The index elements are 32-bit. */
+	Sixteen, /**< The index elements are 16-bit. */
+	ThirtyTwo, /**< The index elements are 32-bit. */
 }
 
 Texture_Format :: enum c.int {
-	INVALID,
+	Invalid,
 
 	/* Unsigned Normalized Float Color Formats */
-	A8_UNORM,
-	R8_UNORM,
-	R8G8_UNORM,
-	R8G8B8A8_UNORM,
-	R16_UNORM,
-	R16G16_UNORM,
-	R16G16B16A16_UNORM,
-	R10G10B10A2_UNORM,
-	B5G6R5_UNORM,
-	B5G5R5A1_UNORM,
-	B4G4R4A4_UNORM,
-	B8G8R8A8_UNORM,
+	A8_UNorm,
+	R8_UNorm,
+	R8G8_UNorm,
+	R8G8B8A8_UNorm,
+	R16_UNorm,
+	R16G16_UNorm,
+	R16G16B16A16_UNorm,
+	R10G10B10A2_UNorm,
+	B5G6R5_UNorm,
+	B5G5R5A1_UNorm,
+	B4G4R4A4_UNorm,
+	B8G8R8A8_UNorm,
 	/* Compressed Unsigned Normalized Float Color Formats */
-	BC1_RGBA_UNORM,
-	BC2_RGBA_UNORM,
-	BC3_RGBA_UNORM,
-	BC4_R_UNORM,
-	BC5_RG_UNORM,
-	BC7_RGBA_UNORM,
+	BC1_RGBA_UNorm,
+	BC2_RGBA_UNorm,
+	BC3_RGBA_UNorm,
+	BC4_R_UNorm,
+	BC5_RG_UNorm,
+	BC7_RGBA_UNorm,
 	/* Compressed Signed Float Color Formats */
-	BC6H_RGB_FLOAT,
+	BC6H_RGB_Float,
 	/* Compressed Unsigned Float Color Formats */
-	BC6H_RGB_UFLOAT,
+	BC6H_RGB_UFloat,
 	/* Signed Normalized Float Color Formats  */
-	R8_SNORM,
-	R8G8_SNORM,
-	R8G8B8A8_SNORM,
-	R16_SNORM,
-	R16G16_SNORM,
-	R16G16B16A16_SNORM,
+	R8_SNorm,
+	R8G8_SNorm,
+	R8G8B8A8_SNorm,
+	R16_SNorm,
+	R16G16_SNorm,
+	R16G16B16A16_SNorm,
 	/* Signed Float Color Formats */
-	R16_FLOAT,
-	R16G16_FLOAT,
-	R16G16B16A16_FLOAT,
-	R32_FLOAT,
-	R32G32_FLOAT,
-	R32G32B32A32_FLOAT,
+	R16_Float,
+	R16G16_Float,
+	R16G16B16A16_Float,
+	R32_Float,
+	R32G32_Float,
+	R32G32B32A32_Float,
 	/* Unsigned Float Color Formats */
-	R11G11B10_UFLOAT,
+	R11G11B10_UFloat,
 	/* Unsigned Integer Color Formats */
-	R8_UINT,
-	R8G8_UINT,
-	R8G8B8A8_UINT,
-	R16_UINT,
-	R16G16_UINT,
-	R16G16B16A16_UINT,
-	R32_UINT,
-	R32G32_UINT,
-	R32G32B32A32_UINT,
+	R8_UInt,
+	R8G8_UInt,
+	R8G8B8A8_UInt,
+	R16_UInt,
+	R16G16_UInt,
+	R16G16B16A16_UInt,
+	R32_UInt,
+	R32G32_UInt,
+	R32G32B32A32_UInt,
 	/* Signed Integer Color Formats */
-	R8_INT,
-	R8G8_INT,
-	R8G8B8A8_INT,
-	R16_INT,
-	R16G16_INT,
-	R16G16B16A16_INT,
-	R32_INT,
-	R32G32_INT,
-	R32G32B32A32_INT,
-	/* SRGB Unsigned Normalized Color Formats */
-	R8G8B8A8_UNORM_SRGB,
-	B8G8R8A8_UNORM_SRGB,
-	/* Compressed SRGB Unsigned Normalized Color Formats */
-	BC1_RGBA_UNORM_SRGB,
-	BC2_RGBA_UNORM_SRGB,
-	BC3_RGBA_UNORM_SRGB,
-	BC7_RGBA_UNORM_SRGB,
+	R8_Int,
+	R8G8_Int,
+	R8G8B8A8_Int,
+	R16_Int,
+	R16G16_Int,
+	R16G16B16A16_Int,
+	R32_Int,
+	R32G32_Int,
+	R32G32B32A32_Int,
+	/* Srgb Unsigned Normalized Color Formats */
+	R8G8B8A8_UNorm_Srgb,
+	B8G8R8A8_UNorm_Srgb,
+	/* Compressed Srgb Unsigned Normalized Color Formats */
+	BC1_RGBA_UNorm_Srgb,
+	BC2_RGBA_UNorm_Srgb,
+	BC3_RGBA_UNorm_Srgb,
+	BC7_RGBA_UNorm_Srgb,
 	/* Depth Formats */
-	D16_UNORM,
-	D24_UNORM,
-	D32_FLOAT,
-	D24_UNORM_S8_UINT,
-	D32_FLOAT_S8_UINT,
+	D16_UNorm,
+	D24_UNorm,
+	D32_Float,
+	D24_UNorm_S8_UInt,
+	D32_Float_S8_UInt,
 	/* Compressed ASTC Normalized Float Color Formats*/
-	ASTC_4x4_UNORM,
-	ASTC_5x4_UNORM,
-	ASTC_5x5_UNORM,
-	ASTC_6x5_UNORM,
-	ASTC_6x6_UNORM,
-	ASTC_8x5_UNORM,
-	ASTC_8x6_UNORM,
-	ASTC_8x8_UNORM,
-	ASTC_10x5_UNORM,
-	ASTC_10x6_UNORM,
-	ASTC_10x8_UNORM,
-	ASTC_10x10_UNORM,
-	ASTC_12x10_UNORM,
-	ASTC_12x12_UNORM,
-	/* Compressed SRGB ASTC Normalized Float Color Formats*/
-	ASTC_4x4_UNORM_SRGB,
-	ASTC_5x4_UNORM_SRGB,
-	ASTC_5x5_UNORM_SRGB,
-	ASTC_6x5_UNORM_SRGB,
-	ASTC_6x6_UNORM_SRGB,
-	ASTC_8x5_UNORM_SRGB,
-	ASTC_8x6_UNORM_SRGB,
-	ASTC_8x8_UNORM_SRGB,
-	ASTC_10x5_UNORM_SRGB,
-	ASTC_10x6_UNORM_SRGB,
-	ASTC_10x8_UNORM_SRGB,
-	ASTC_10x10_UNORM_SRGB,
-	ASTC_12x10_UNORM_SRGB,
-	ASTC_12x12_UNORM_SRGB,
+	ASTC_4x4_UNorm,
+	ASTC_5x4_UNorm,
+	ASTC_5x5_UNorm,
+	ASTC_6x5_UNorm,
+	ASTC_6x6_UNorm,
+	ASTC_8x5_UNorm,
+	ASTC_8x6_UNorm,
+	ASTC_8x8_UNorm,
+	ASTC_10x5_UNorm,
+	ASTC_10x6_UNorm,
+	ASTC_10x8_UNorm,
+	ASTC_10x10_UNorm,
+	ASTC_12x10_UNorm,
+	ASTC_12x12_UNorm,
+	/* Compressed Srgb ASTC Normalized Float Color Formats*/
+	ASTC_4x4_UNorm_Srgb,
+	ASTC_5x4_UNorm_Srgb,
+	ASTC_5x5_UNorm_Srgb,
+	ASTC_6x5_UNorm_Srgb,
+	ASTC_6x6_UNorm_Srgb,
+	ASTC_8x5_UNorm_Srgb,
+	ASTC_8x6_UNorm_Srgb,
+	ASTC_8x8_UNorm_Srgb,
+	ASTC_10x5_UNorm_Srgb,
+	ASTC_10x6_UNorm_Srgb,
+	ASTC_10x8_UNorm_Srgb,
+	ASTC_10x10_UNorm_Srgb,
+	ASTC_12x10_UNorm_Srgb,
+	ASTC_12x12_UNorm_Srgb,
 	/* Compressed ASTC Signed Float Color Formats*/
-	ASTC_4x4_FLOAT,
-	ASTC_5x4_FLOAT,
-	ASTC_5x5_FLOAT,
-	ASTC_6x5_FLOAT,
-	ASTC_6x6_FLOAT,
-	ASTC_8x5_FLOAT,
-	ASTC_8x6_FLOAT,
-	ASTC_8x8_FLOAT,
-	ASTC_10x5_FLOAT,
-	ASTC_10x6_FLOAT,
-	ASTC_10x8_FLOAT,
-	ASTC_10x10_FLOAT,
-	ASTC_12x10_FLOAT,
-	ASTC_12x12_FLOAT,
+	ASTC_4x4_Float,
+	ASTC_5x4_Float,
+	ASTC_5x5_Float,
+	ASTC_6x5_Float,
+	ASTC_6x6_Float,
+	ASTC_8x5_Float,
+	ASTC_8x6_Float,
+	ASTC_8x8_Float,
+	ASTC_10x5_Float,
+	ASTC_10x6_Float,
+	ASTC_10x8_Float,
+	ASTC_10x10_Float,
+	ASTC_12x10_Float,
+	ASTC_12x12_Float,
 }
 
 Texture_Usage_Flags :: distinct bit_set[Texture_Usage_Flag;u32]
 Texture_Usage_Flag :: enum u32 {
-	SAMPLER                                 = 0, /**< Texture supports sampling. */
-	COLOR_TARGET                            = 1, /**< Texture is a color render target. */
-	DEPTH_STENCIL_TARGET                    = 2, /**< Texture is a depth stencil target. */
-	GRAPHICS_STORAGE_READ                   = 3, /**< Texture supports storage reads in graphics stages. */
-	COMPUTE_STORAGE_READ                    = 4, /**< Texture supports storage reads in the compute stage. */
-	COMPUTE_STORAGE_WRITE                   = 5, /**< Texture supports storage writes in the compute stage. */
-	COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE = 6, /**< Texture supports reads and writes in the same compute shader. This is NOT equivalent to READ | WRITE. */
+	Sampler                                 = 0, /**< Texture supports sampling. */
+	Color_Target                            = 1, /**< Texture is a color render target. */
+	Depth_Stencil_Target                    = 2, /**< Texture is a depth stencil target. */
+	Graphics_Storage_Read                   = 3, /**< Texture supports storage reads in graphics stages. */
+	Compute_Storage_Read                    = 4, /**< Texture supports storage reads in the compute stage. */
+	Compute_Storage_Write                   = 5, /**< Texture supports storage writes in the compute stage. */
+	Compute_Storage_Simultaneous_Read_Write = 6, /**< Texture supports reads and writes in the same compute shader. This is NOT equivalent to Read | Write. */
 }
 
 Texture_Type :: enum c.int {
 	D2, /**< The texture is a 2-dimensional image. */
-	D2_ARRAY, /**< The texture is a 2-dimensional array image. */
+	D2_Array, /**< The texture is a 2-dimensional array image. */
 	D3, /**< The texture is a 3-dimensional image. */
-	CUBE, /**< The texture is a cube image. */
-	CUBE_ARRAY, /**< The texture is a cube array image. */
+	Cube, /**< The texture is a cube image. */
+	Cube_Array, /**< The texture is a cube array image. */
 }
 
 Sample_Count :: enum c.int {
@@ -194,38 +194,38 @@ Sample_Count :: enum c.int {
 }
 
 Cube_Map_Face :: enum c.int {
-	POSITIVEX,
-	NEGATIVEX,
-	POSITIVEY,
-	NEGATIVEY,
-	POSITIVEZ,
-	NEGATIVEZ,
+	Positive_X,
+	Negative_X,
+	Positive_Y,
+	Negative_Y,
+	Positive_Z,
+	Negative_Z,
 }
 
 
 Buffer_Usage_Flags :: distinct bit_set[Buffer_Usage_Flag;u32]
 Buffer_Usage_Flag :: enum u32 {
-	VERTEX                = 0, /**< Buffer is a vertex buffer. */
-	INDEX                 = 1, /**< Buffer is an index buffer. */
-	INDIRECT              = 2, /**< Buffer is an indirect buffer. */
-	GRAPHICS_STORAGE_READ = 3, /**< Buffer supports storage reads in graphics stages. */
-	COMPUTE_STORAGE_READ  = 4, /**< Buffer supports storage reads in the compute stage. */
-	COMPUTE_STORAGE_WRITE = 5, /**< Buffer supports storage writes in the compute stage. */
+	Vertex                = 0, /**< Buffer is a vertex buffer. */
+	Index                 = 1, /**< Buffer is an index buffer. */
+	Indirect              = 2, /**< Buffer is an indirect buffer. */
+	Graphics_Storage_Read = 3, /**< Buffer supports storage reads in graphics stages. */
+	Compute_Storage_Read  = 4, /**< Buffer supports storage reads in the compute stage. */
+	Compute_Storage_Write = 5, /**< Buffer supports storage writes in the compute stage. */
 }
 
 Transfer_Buffer_Usage :: enum c.int {
-	UPLOAD,
-	DOWNLOAD,
+	Upload,
+	Download,
 }
 
 Shader_Stage :: enum c.int {
-	VERTEX,
-	FRAGMENT,
+	Vertex,
+	Fragment,
 }
 
 Shader_Format :: distinct bit_set[Shader_Format_Flag;u32]
 Shader_Format_Flag :: enum u32 {
-	PRIVATE  = 0, /**< Shaders for NDA'd platforms. */
+	Private  = 0, /**< Shaders for NDA'd platforms. */
 	SPIRV    = 1, /**< SPIR-V shaders for Vulkan. */
 	DXBC     = 2, /**< DXBC SM5_1 shaders for D3D12. */
 	DXIL     = 3, /**< DXIL SM6_0 shaders for D3D12. */
@@ -235,134 +235,134 @@ Shader_Format_Flag :: enum u32 {
 GPU_SHADERFORMAT_INVALID :: Shader_Format{}
 
 Vertex_Element_Format :: enum c.int {
-	INVALID,
+	Invalid,
 
 	/* 32-bit Signed Integers */
-	INT,
-	INT2,
-	INT3,
-	INT4,
+	Int,
+	Int2,
+	Int3,
+	Int4,
 
 	/* 32-bit Unsigned Integers */
-	UINT,
-	UINT2,
-	UINT3,
-	UINT4,
+	UInt,
+	UInt2,
+	UInt3,
+	UInt4,
 
 	/* 32-bit Floats */
-	FLOAT,
-	FLOAT2,
-	FLOAT3,
-	FLOAT4,
+	Float,
+	Float2,
+	Float3,
+	Float4,
 
 	/* 8-bit Signed Integers */
-	BYTE2,
-	BYTE4,
+	Byte2,
+	Byte4,
 
 	/* 8-bit Unsigned Integers */
-	UBYTE2,
-	UBYTE4,
+	UByte2,
+	UByte4,
 
 	/* 8-bit Signed Normalized */
-	BYTE2_NORM,
-	BYTE4_NORM,
+	Byte2_Norm,
+	Byte4_Norm,
 
 	/* 8-bit Unsigned Normalized */
-	UBYTE2_NORM,
-	UBYTE4_NORM,
+	UByte2_Norm,
+	UByte4_Norm,
 
 	/* 16-bit Signed Integers */
-	SHORT2,
-	SHORT4,
+	Short2,
+	Short4,
 
 	/* 16-bit Unsigned Integers */
-	USHORT2,
-	USHORT4,
+	UShort2,
+	UShort4,
 
 	/* 16-bit Signed Normalized */
-	SHORT2_NORM,
-	SHORT4_NORM,
+	Short2_Norm,
+	Short4_Norm,
 
 	/* 16-bit Unsigned Normalized */
-	USHORT2_NORM,
-	USHORT4_NORM,
+	UShort2_Norm,
+	UShort4_Norm,
 
 	/* 16-bit Floats */
-	HALF2,
-	HALF4,
+	Half2,
+	Half4,
 }
 
 Vertex_Input_Rate :: enum c.int {
-	VERTEX, /**< Attribute addressing is a function of the vertex index. */
-	INSTANCE, /**< Attribute addressing is a function of the instance index. */
+	Vertex, /**< Attribute addressing is a function of the vertex index. */
+	Instance, /**< Attribute addressing is a function of the instance index. */
 }
 
 
 Fill_Mode :: enum c.int {
-	FILL, /**< Polygons will be rendered via rasterization. */
-	LINE, /**< Polygon edges will be drawn as line segments. */
+	Fill, /**< Polygons will be rendered via rasterization. */
+	Line, /**< Polygon edges will be drawn as line segments. */
 }
 
 Cull_Mode :: enum c.int {
-	NONE, /**< No triangles are culled. */
-	FRONT, /**< Front-facing triangles are culled. */
-	BACK, /**< Back-facing triangles are culled. */
+	None, /**< No triangles are culled. */
+	Front, /**< Front-facing triangles are culled. */
+	Back, /**< Back-facing triangles are culled. */
 }
 
 Front_Face :: enum c.int {
-	COUNTER_CLOCKWISE,
+	Counter_Clockwise,
 	/**< A triangle with counter-clockwise vertex winding will be considered front-facing. */
-	CLOCKWISE, /**< A triangle with clockwise vertex winding will be considered front-facing. */
+	Clockwise, /**< A triangle with clockwise vertex winding will be considered front-facing. */
 }
 
 Compare_Op :: enum c.int {
-	INVALID,
-	NEVER, /**< The comparison always evaluates false. */
-	LESS, /**< The comparison evaluates reference < test. */
-	EQUAL, /**< The comparison evaluates reference == test. */
-	LESS_OR_EQUAL, /**< The comparison evaluates reference <= test. */
-	GREATER, /**< The comparison evaluates reference > test. */
-	NOT_EQUAL, /**< The comparison evaluates reference != test. */
-	GREATER_OR_EQUAL, /**< The comparison evalutes reference >= test. */
-	ALWAYS, /**< The comparison always evaluates true. */
+	Invalid,
+	Never, /**< The comparison always evaluates false. */
+	Less, /**< The comparison evaluates reference < test. */
+	Equal, /**< The comparison evaluates reference == test. */
+	Less_Or_Equal, /**< The comparison evaluates reference <= test. */
+	Greater, /**< The comparison evaluates reference > test. */
+	Not_Equal, /**< The comparison evaluates reference != test. */
+	Greater_Or_Equal, /**< The comparison evalutes reference >= test. */
+	Always, /**< The comparison always evaluates true. */
 }
 
 Stencil_Op :: enum c.int {
-	INVALID,
-	KEEP, /**< Keeps the current value. */
-	ZERO, /**< Sets the value to 0. */
-	REPLACE, /**< Sets the value to reference. */
-	INCREMENT_AND_CLAMP, /**< Increments the current value and clamps to the maximum value. */
-	DECREMENT_AND_CLAMP, /**< Decrements the current value and clamps to 0. */
-	INVERT, /**< Bitwise-inverts the current value. */
-	INCREMENT_AND_WRAP, /**< Increments the current value and wraps back to 0. */
-	DECREMENT_AND_WRAP, /**< Decrements the current value and wraps to the maximum value. */
+	Invalid,
+	Keep, /**< Keeps the current value. */
+	Zero, /**< Sets the value to 0. */
+	Replace, /**< Sets the value to reference. */
+	Increment_And_Clamp, /**< Increments the current value and clamps to the maximum value. */
+	Decrement_And_Clamp, /**< Decrements the current value and clamps to 0. */
+	Invert, /**< Bitwise-inverts the current value. */
+	Increment_And_Wrap, /**< Increments the current value and wraps back to 0. */
+	Decrement_And_Wrap, /**< Decrements the current value and wraps to the maximum value. */
 }
 
 Blend_Op :: enum c.int {
-	INVALID,
-	ADD, /**< (source * source_factor) + (destination * destination_factor) */
-	SUBTRACT, /**< (source * source_factor) - (destination * destination_factor) */
-	REVERSE_SUBTRACT, /**< (destination * destination_factor) - (source * source_factor) */
-	MIN, /**< min(source, destination) */
-	MAX, /**< max(source, destination) */
+	Invalid,
+	Add, /**< (source * source_factor) + (destination * destination_factor) */
+	Subtract, /**< (source * source_factor) - (destination * destination_factor) */
+	Reverse_Subtract, /**< (destination * destination_factor) - (source * source_factor) */
+	Min, /**< min(source, destination) */
+	Max, /**< max(source, destination) */
 }
 
 Blend_Factor :: enum c.int {
-	INVALID,
-	ZERO, /**< 0 */
-	ONE, /**< 1 */
-	SRC_COLOR, /**< source color */
-	ONE_MINUS_SRC_COLOR, /**< 1 - source color */
-	DST_COLOR, /**< destination color */
-	ONE_MINUS_DST_COLOR, /**< 1 - destination color */
-	SRC_ALPHA, /**< source alpha */
-	ONE_MINUS_SRC_ALPHA, /**< 1 - source alpha */
-	DST_ALPHA, /**< destination alpha */
-	ONE_MINUS_DST_ALPHA, /**< 1 - destination alpha */
-	CONSTANT_COLOR, /**< blend constant */
-	ONE_MINUS_CONSTANT_COLOR, /**< 1 - blend constant */
-	SRC_ALPHA_SATURATE, /**< min(source alpha, 1 - destination alpha) */
+	Invalid,
+	Zero, /**< 0 */
+	One, /**< 1 */
+	Src_Color, /**< source color */
+	One_Minus_Src_Color, /**< 1 - source color */
+	Dst_Color, /**< destination color */
+	One_Minus_Dst_Color, /**< 1 - destination color */
+	Src_Alpha, /**< source alpha */
+	One_Minus_Src_Alpha, /**< 1 - source alpha */
+	Dst_Alpha, /**< destination alpha */
+	One_Minus_Dst_Alpha, /**< 1 - destination alpha */
+	Constant_Color, /**< blend constant */
+	One_Minus_Constant_Color, /**< 1 - blend constant */
+	Src_Alpha_Saturate, /**< min(source alpha, 1 - destination alpha) */
 }
 
 
@@ -375,31 +375,31 @@ Color_Component_Flag :: enum u8 {
 }
 
 Filter :: enum c.int {
-	NEAREST, /**< Point filtering. */
-	LINEAR, /**< Linear filtering. */
+	Nearest, /**< Point filtering. */
+	Linear, /**< Linear filtering. */
 }
 
 Sampler_Mipmap_Mode :: enum c.int {
-	NEAREST, /**< Point filtering. */
-	LINEAR, /**< Linear filtering. */
+	Nearest, /**< Point filtering. */
+	Linear, /**< Linear filtering. */
 }
 
 Sampler_Address_Mode :: enum c.int {
-	REPEAT, /**< Specifies that the coordinates will wrap around. */
-	MIRRORED_REPEAT, /**< Specifies that the coordinates will wrap around mirrored. */
-	CLAMP_TO_EDGE, /**< Specifies that the coordinates will clamp to the 0-1 range. */
+	Repeat, /**< Specifies that the coordinates will wrap around. */
+	Mirrored_Repeat, /**< Specifies that the coordinates will wrap around mirrored. */
+	Clamp_To_Edge, /**< Specifies that the coordinates will clamp to the 0-1 range. */
 }
 
 Present_Mode :: enum c.int {
-	VSYNC,
-	IMMEDIATE,
-	MAILBOX,
+	Vsync,
+	Immediate,
+	Mailbox,
 }
 
 Swapchain_Composition :: enum c.int {
 	SDR,
-	SDR_LINEAR,
-	HDR_EXTENDED_LINEAR,
+	SDR_Linear,
+	HDR_Extended_Linear,
 	HDR10_ST2084,
 }
 
@@ -770,7 +770,7 @@ PROP_GPU_TEXTURE_CREATE_NAME_STRING :: "SDL.gpu.texture.create.name"
 PROP_GPU_BUFFER_CREATE_NAME_STRING :: "SDL.gpu.buffer.create.name"
 PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING :: "SDL.gpu.transferbuffer.create.name"
 
-@(default_calling_convention = "c", require_results)
+@(default_calling_convention = "c")
 foreign lib {
 	@(link_name = "SDL_GPUSupportsShaderFormats")
 	supports_shader_formats :: proc(format_flags: Shader_Format, name: cstring) -> bool ---
@@ -791,9 +791,9 @@ foreign lib {
 	@(link_name = "SDL_GetGPUShaderFormats")
 	get_shader_formats :: proc(device: ^Device) -> Shader_Format ---
 	@(link_name = "SDL_CreateGPUComputePipeline")
-	create_compute_Pipeline :: proc(device: ^Device, #by_ptr createinfo: Compute_Pipeline_Create_Info) -> ^Compute_Pipeline ---
+	create_compute_pipeline :: proc(device: ^Device, #by_ptr createinfo: Compute_Pipeline_Create_Info) -> ^Compute_Pipeline ---
 	@(link_name = "SDL_CreateGPUGraphicsPipeline")
-	create_graphics_Pipeline :: proc(device: ^Device, #by_ptr createinfo: Graphics_Pipeline_Create_Info) -> ^Graphics_Pipeline ---
+	create_graphics_pipeline :: proc(device: ^Device, #by_ptr createinfo: Graphics_Pipeline_Create_Info) -> ^Graphics_Pipeline ---
 	@(link_name = "SDL_CreateGPUSampler")
 	create_sampler :: proc(device: ^Device, #by_ptr createinfo: Sampler_Create_Info) -> ^Sampler ---
 	@(link_name = "SDL_CreateGPUShader")
@@ -803,7 +803,7 @@ foreign lib {
 	@(link_name = "SDL_CreateGPUBuffer")
 	create_buffer :: proc(device: ^Device, #by_ptr createinfo: Buffer_Create_Info) -> ^Buffer ---
 	@(link_name = "SDL_CreateGPUTransferBuffer")
-	create_transfer_Buffer :: proc(device: ^Device, #by_ptr createinfo: Transfer_Buffer_Create_Info) -> ^Transfer_Buffer ---
+	create_transfer_buffer :: proc(device: ^Device, #by_ptr createinfo: Transfer_Buffer_Create_Info) -> ^Transfer_Buffer ---
 	@(link_name = "SDL_SetGPUBufferName")
 	set_buffer_name :: proc(device: ^Device, buffer: ^Buffer, text: cstring) ---
 	@(link_name = "SDL_SetGPUTextureName")
