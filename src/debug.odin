@@ -41,15 +41,17 @@ debug_begin_frame :: proc() {
 	DEBUG_STATE.is_minimized = draw_data.DisplaySize.x <= 0 || draw_data.DisplaySize.y <= 0
 }
 
-debug_draw :: proc(cmdbuf: ^sdl.Command_Buffer, render_pass: ^sdl.Render_Pass) {
+debug_end_frame :: proc(cmdbuf: ^sdl.Command_Buffer) {
 	if !DEBUG_STATE.is_minimized {
 		imgpu.PrepareDrawData(imgui.GetDrawData(), cmdbuf)
 	}
+}
+
+debug_draw :: proc(cmdbuf: ^sdl.Command_Buffer, render_pass: ^sdl.Render_Pass) {
 	imgpu.RenderDrawData(imgui.GetDrawData(), cmdbuf, render_pass)
 }
 
 debug_shutdown :: proc() {
-
 	imgpu.Shutdown()
 	imsdl.Shutdown()
 	imgui.DestroyContext()

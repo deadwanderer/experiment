@@ -7,6 +7,7 @@ import "ext:sdl"
 
 Platform :: struct {
 	window: ^sdl.Window,
+	dim:    Vec2i,
 }
 
 platform_init :: proc() -> bool {
@@ -40,6 +41,7 @@ platform_create_window :: proc(title: string, width: int, height: int) {
 		{.Resizable},
 	)
 	assert(APP.platform.window != nil, "Failed to create SDL window!")
+	APP.platform.dim = {width, height}
 }
 
 platform_shutdown :: proc() {

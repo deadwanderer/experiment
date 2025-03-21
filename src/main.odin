@@ -43,8 +43,7 @@ main :: proc() {
 			}
 		}
 
-		debug_begin_frame()
-
+		renderer_begin_frame()
 		renderer_draw()
 		free_all(context.temp_allocator)
 	}

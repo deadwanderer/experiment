@@ -10,12 +10,14 @@ Position_Texture_Vertex :: struct {
 
 
 Renderer :: struct {
-	gpu:           ^sdl.Device,
-	pipeline:      ^sdl.Graphics_Pipeline,
-	vertex_buffer: ^sdl.Buffer,
-	index_buffer:  ^sdl.Buffer,
-	texture:       ^sdl.Texture,
-	sampler:       ^sdl.Sampler,
+	gpu:            ^sdl.Device,
+	pipeline:       ^sdl.Graphics_Pipeline,
+	vertex_buffer:  ^sdl.Buffer,
+	index_buffer:   ^sdl.Buffer,
+	texture:        ^sdl.Texture,
+	sampler:        ^sdl.Sampler,
+	render_texture: ^sdl.Texture,
+	depth_texture:  ^sdl.Texture,
 }
 
 renderer_init :: proc() -> bool {
@@ -47,6 +49,8 @@ renderer_init :: proc() -> bool {
 			color_target_descriptions = &sdl.Color_Target_Description {
 				format = sdl.get_swapchain_texture_format(APP.gpu, APP.window),
 			},
+			has_depth_stencil_target = true,
+			depth_stencil_format = .D32_Float,
 		},
 		vertex_input_state = {
 			num_vertex_buffers = 1,
@@ -64,6 +68,11 @@ renderer_init :: proc() -> bool {
 				},
 			),
 		},
+		depth_stencil_state = {
+			enable_depth_test = true,
+			enable_depth_write = true,
+			compare_op = .Less_Or_Equal,
+		},
 		primitive_type = .Triangle_List,
 		vertex_shader = vertex_shader,
 		fragment_shader = fragment_shader,
@@ -80,6 +89,30 @@ renderer_init :: proc() -> bool {
 
 	APP.renderer.texture = load_array_texture(APP.gpu, {"Dirt.png", "Grass.png", "Ground.png"})
 
+	APP.render_texture = sdl.create_texture(
+		APP.gpu,
+		sdl.Texture_Create_Info {
+			format = sdl.get_swapchain_texture_format(APP.gpu, APP.window),
+			type = .D2,
+			width = u32(APP.dim.x),
+			height = u32(APP.dim.y),
+			layer_count_or_depth = 1,
+			num_levels = 1,
+			usage = {.Color_Target, .Sampler},
+		},
+	)
+	APP.depth_texture = sdl.create_texture(
+		APP.gpu,
+		sdl.Texture_Create_Info {
+			format = .D32_Float,
+			type = .D2,
+			width = u32(APP.dim.x),
+			height = u32(APP.dim.y),
+			layer_count_or_depth = 1,
+			num_levels = 1,
+			usage = {.Depth_Stencil_Target},
+		},
+	)
 	APP.renderer.vertex_buffer = sdl.create_buffer(
 		APP.gpu,
 		{usage = {.Vertex}, size = size_of(Position_Texture_Vertex) * 4},
@@ -154,11 +187,10 @@ renderer_init :: proc() -> bool {
 }
 
 renderer_begin_frame :: proc() {
-
+	debug_begin_frame()
 }
 
 renderer_draw :: proc() {
-
 	cmdbuf := sdl.acquire_command_buffer(APP.renderer.gpu)
 	if cmdbuf != nil {
 		swap_tex: ^sdl.Texture
@@ -169,16 +201,27 @@ renderer_draw :: proc() {
 			nil,
 			nil,
 		) {
+			debug_end_frame(cmdbuf)
 			render_pass := sdl.begin_render_pass(
 				cmdbuf,
 				&sdl.Color_Target_Info {
-					texture = swap_tex,
+					texture = APP.render_texture,
 					load_op = .Clear,
 					store_op = .Store,
-					clear_color = {0.3, 0.4, 0.5, 1},
+					clear_color = {0.1, 0.1, 0.1, 1},
+					cycle = true,
 				},
 				1,
-				nil,
+				&sdl.Depth_Stencil_Target_Info {
+					texture = APP.depth_texture,
+					clear_depth = 1,
+					clear_stencil = 0,
+					load_op = .Clear,
+					stencil_load_op = .Dont_Care,
+					store_op = .Dont_Care,
+					stencil_store_op = .Dont_Care,
+					cycle = true,
+				},
 			)
 
 			sdl.bind_graphics_pipeline(render_pass, APP.renderer.pipeline)
@@ -203,7 +246,39 @@ renderer_draw :: proc() {
 				1,
 			)
 			sdl.draw_indexed_primitives(render_pass, 6, 1, 0, 0, 0)
+			sdl.end_render_pass(render_pass)
 
+			sdl.blit_texture(
+				cmdbuf,
+				sdl.Blit_Info {
+					source = sdl.Blit_Region {
+						texture = APP.render_texture,
+						w = u32(APP.dim.x),
+						h = u32(APP.dim.y),
+					},
+					destination = sdl.Blit_Region {
+						texture = swap_tex,
+						w = u32(APP.dim.x),
+						h = u32(APP.dim.y),
+					},
+					load_op = .Dont_Care,
+					clear_color = {0, 0, 0, 1},
+					filter = .Linear,
+				},
+			)
+
+			render_pass = sdl.begin_render_pass(
+				cmdbuf,
+				&sdl.Color_Target_Info {
+					texture = swap_tex,
+					load_op = .Load,
+					store_op = .Store,
+					cycle = false,
+				},
+				1,
+				nil,
+			)
+			debug_draw(cmdbuf, render_pass)
 			sdl.end_render_pass(render_pass)
 		} else {
 			log.errorf("Failed to acquire swapchain texture: %v", sdl.get_error())
@@ -219,6 +294,8 @@ renderer_shutdown :: proc() {
 	sdl.release_buffer(APP.gpu, APP.renderer.index_buffer)
 	sdl.release_sampler(APP.gpu, APP.renderer.sampler)
 	sdl.release_texture(APP.gpu, APP.renderer.texture)
+	sdl.release_texture(APP.gpu, APP.renderer.render_texture)
+	sdl.release_texture(APP.gpu, APP.renderer.depth_texture)
 	sdl.release_graphics_pipeline(APP.gpu, APP.renderer.pipeline)
 	sdl.release_window_from_device(APP.renderer.gpu, APP.platform.window)
 	sdl.destroy_device(APP.renderer.gpu)
