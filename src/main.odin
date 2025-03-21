@@ -95,9 +95,9 @@ main :: proc() {
 	sampler = sdl.create_sampler(
 		device,
 		{
-			min_filter = .Nearest,
-			mag_filter = .Nearest,
-			mipmap_mode = .Nearest,
+			min_filter = .Linear,
+			mag_filter = .Linear,
+			mipmap_mode = .Linear,
 			address_mode_u = .Clamp_To_Edge,
 			address_mode_v = .Clamp_To_Edge,
 			address_mode_w = .Clamp_To_Edge,
