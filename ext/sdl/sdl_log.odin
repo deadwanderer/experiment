@@ -47,6 +47,13 @@ Log_Priority :: enum c.int {
 	Critical,
 }
 
+Log_Output_Function :: #type proc "c" (
+	userdata: rawptr,
+	category: Log_Category,
+	priority: Log_Priority,
+	message: cstring,
+)
+
 @(default_calling_convention = "c")
 foreign lib {
 	@(link_name = "SDL_SetLogPriorities")
@@ -79,4 +86,6 @@ foreign lib {
 	log_message :: proc(category: c.int, priority: Log_Priority, fmt: cstring, #c_vararg args: ..any) ---
 	@(link_name = "SDL_LogMessageV")
 	log_message_v :: proc(category: c.int, priority: Log_Priority, fmt: cstring, ap: c.va_list) ---
+	@(link_name = "SDL_SetLogOutputFunction")
+	set_log_output_function :: proc(callback: Log_Output_Function, userdata: rawptr) ---
 }

@@ -1,5 +1,9 @@
 package main
 
+import imgui "../ext/imgui"
+import imsdl "../ext/imgui/imgui_impl_sdl3"
+import imgpu "../ext/imgui/imgui_impl_sdl3gpu"
+import "base:runtime"
 import "core:fmt"
 import sdl "ext:sdl"
 
@@ -15,7 +19,20 @@ Position_Texture_Vertex :: struct {
 }
 
 main :: proc() {
-	fmt.println("Experiment time!")
+	sdl.set_log_priorities(.Verbose)
+	sdl.set_log_output_function(
+		proc "c" (
+			userdata: rawptr,
+			category: sdl.Log_Category,
+			priority: sdl.Log_Priority,
+			message: cstring,
+		) {
+			context = runtime.default_context()
+			fmt.printfln("SDL {} [{}]: {}", category, priority, message)
+		},
+		nil,
+	)
+
 	if (!sdl.init({.Video})) {
 		fmt.eprintln("Failed to init SDL!")
 		return
@@ -34,6 +51,19 @@ main :: proc() {
 		fmt.eprintln("Failed to claim window for GPU device")
 		return
 	}
+
+	imgui.CreateContext()
+	fnt := imgui.GetIO().Fonts
+	imgui.FontAtlas_AddFontFromFileTTF(fnt, "fonts/RobotoMedium.ttf", 14)
+
+	imsdl.InitForSDLGPU(window)
+	imgpu.Init(
+		{
+			Device = device,
+			ColorTargetFormat = sdl.get_swapchain_texture_format(device, window),
+			MSAASamples = ._1,
+		},
+	)
 
 	vertex_shader := load_shader(device, textured_quad_vert, 0, 0, 0, 0)
 	if vertex_shader == nil {
@@ -151,6 +181,7 @@ main :: proc() {
 	for running {
 		ev: sdl.Event
 		for sdl.poll_event(&ev) {
+			imsdl.ProcessEvent(&ev)
 			#partial switch ev.type {
 			case .Quit:
 				{
@@ -168,10 +199,23 @@ main :: proc() {
 			}
 		}
 
+		imgpu.NewFrame()
+		imsdl.NewFrame()
+		imgui.NewFrame()
+
+		imgui.ShowMetricsWindow()
+		imgui.Render()
+
+		draw_data := imgui.GetDrawData()
+		is_minimized := draw_data.DisplaySize.x <= 0 || draw_data.DisplaySize.y <= 0
+
 		cmdbuf := sdl.acquire_command_buffer(device)
 		if cmdbuf != nil {
 			swap_tex: ^sdl.Texture
 			if sdl.wait_and_acquire_swapchain_texture(cmdbuf, window, &swap_tex, nil, nil) {
+				if !is_minimized {
+					imgpu.PrepareDrawData(draw_data, cmdbuf)
+				}
 				render_pass := sdl.begin_render_pass(
 					cmdbuf,
 					&sdl.Color_Target_Info {
@@ -199,6 +243,9 @@ main :: proc() {
 					1,
 				)
 				sdl.draw_indexed_primitives(render_pass, 6, 1, 0, 0, 0)
+				if !is_minimized {
+					imgpu.RenderDrawData(imgui.GetDrawData(), cmdbuf, render_pass)
+				}
 				sdl.end_render_pass(render_pass)
 			} else {
 				fmt.eprintln("Failed to acquire swapchain texture")
@@ -209,7 +256,10 @@ main :: proc() {
 		success = sdl.submit_command_buffer(cmdbuf)
 		free_all(context.temp_allocator)
 	}
-
+	
+	imgpu.Shutdown()
+	imsdl.Shutdown()
+	imgui.DestroyContext()
 	sdl.release_buffer(device, vertex_buffer)
 	sdl.release_buffer(device, index_buffer)
 	sdl.release_sampler(device, sampler)
