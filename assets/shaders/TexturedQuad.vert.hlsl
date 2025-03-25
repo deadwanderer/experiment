@@ -8,9 +8,13 @@ struct Output {
     float4 Position : SV_Position;
 };
 
+cbuffer UniformBlock : register(b0, space1) {
+    float4x4 ViewProj : packoffset(c0);
+};
+
 Output main(Input input) {
     Output output;
     output.TexCoord = input.TexCoord;
-    output.Position = float4(input.Position, 1.0f);
+    output.Position = mul(ViewProj,float4(input.Position, 1.0f));
     return output;
 }

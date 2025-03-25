@@ -1,6 +1,7 @@
 package main
 
 import "core:log"
+import "core:math/linalg"
 import "ext:sdl"
 
 Position_Texture_Vertex :: struct {
@@ -32,7 +33,7 @@ renderer_init :: proc() -> bool {
 		return false
 	}
 
-	vertex_shader := load_shader(APP.gpu, textured_quad_vert, 0, 0, 0, 0)
+	vertex_shader := load_shader(APP.gpu, textured_quad_vert, 0, 1, 0, 0)
 	if vertex_shader == nil {
 		log.errorf("Failed to create vertex shader: %v", sdl.get_error())
 		return false
@@ -145,10 +146,10 @@ renderer_init :: proc() -> bool {
 		buf_transfer,
 		false,
 	)
-	transfer_data[0] = {-1, 1, 0, 0, 0}
+	transfer_data[0] = {0, 1, 0, 0, 0}
 	transfer_data[1] = {1, 1, 0, 1, 0}
-	transfer_data[2] = {1, -1, 0, 1, 1}
-	transfer_data[3] = {-1, -1, 0, 0, 1}
+	transfer_data[2] = {1, 0, 0, 1, 1}
+	transfer_data[3] = {0, 0, 0, 0, 1}
 
 	index_data := cast([^]u16)transfer_data[4:]
 	index_data[0] = 0
@@ -191,6 +192,14 @@ renderer_begin_frame :: proc() {
 }
 
 renderer_draw :: proc() {
+	view_mtx := look_at({0, 0, 0}, {0, 0, -1}, {0, 1, 0}, false)
+	proj_mtx := orthographic(0, 1280, 0, 720, 0.1, 10.0, false)
+	translate_mtx := linalg.matrix4_translate_f32({150, 150, 0})
+	scale_mtx := linalg.matrix4_scale_f32({300, 300, 1})
+	model_mtx := translate_mtx * scale_mtx
+	view_proj := proj_mtx * view_mtx * model_mtx
+
+
 	cmdbuf := sdl.acquire_command_buffer(APP.renderer.gpu)
 	if cmdbuf != nil {
 		swap_tex: ^sdl.Texture
@@ -236,6 +245,7 @@ renderer_draw :: proc() {
 				{buffer = APP.renderer.index_buffer, offset = 0},
 				.Sixteen,
 			)
+			sdl.push_vertex_uniform_data(cmdbuf, 0, &view_proj, size_of(view_proj))
 			sdl.bind_fragment_samplers(
 				render_pass,
 				0,
