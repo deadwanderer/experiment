@@ -2,7 +2,7 @@ package main
 
 // import "base:runtime"
 // import "core:fmt"
-import sdl "ext:sdl"
+// import sdl "ext:sdl"
 
 Application :: struct {
 	using platform: Platform,
@@ -21,27 +21,8 @@ main :: proc() {
 
 	debug_init()
 
-	running := true
-	for running {
-		ev: sdl.Event
-		for sdl.poll_event(&ev) {
-			debug_handle_event(&ev)
-			#partial switch ev.type {
-			case .Quit:
-				{
-					running = false
-				}
-			case .Key_Down:
-				{
-					#partial switch ev.key.scancode {
-					case .Escape:
-						{
-							running = false
-						}
-					}
-				}
-			}
-		}
+	for !APP.quit_requested {
+		input_update()
 
 		renderer_begin_frame()
 		renderer_draw()
