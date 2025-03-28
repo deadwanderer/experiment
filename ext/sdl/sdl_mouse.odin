@@ -17,3 +17,8 @@ Mouse_Button_Flag :: enum u32 {
 	X1     = 4 - 1,
 	X2     = 5 - 1,
 }
+Button_Left :: 1
+Button_Middle :: 2
+Button_Right :: 3
+Button_X1 :: 4
+Button_X2 :: 5

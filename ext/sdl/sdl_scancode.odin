@@ -82,9 +82,9 @@ Scancode :: enum c.int {
 	                 *   will never generate it with most (all?)
 	                 *   keyboards.
 	                 */
-	SEMICOLON            = 51,
-	APOSTROPHE           = 52,
-	GRAVE                = 53, /**< Located in the top left corner (on both ANSI
+	Semicolon            = 51,
+	Apostrophe           = 52,
+	Grave                = 53, /**< Located in the top left corner (on both ANSI
 	             *   and ISO keyboards). Produces GRAVE ACCENT and
 	             *   TILDE in a US Windows layout and in US and UK
 	             *   Mac layouts on ANSI keyboards, GRAVE ACCENT
@@ -101,10 +101,10 @@ Scancode :: enum c.int {
 	             *   SIGN in a Swiss German, German, or French Mac
 	             *   layout on ANSI keyboards.
 	             */
-	COMMA                = 54,
-	PERIOD               = 55,
-	SLASH                = 56,
-	CAPSLOCK             = 57,
+	Comma                = 54,
+	Period               = 55,
+	Slash                = 56,
+	Caps_Lock            = 57,
 	F1                   = 58,
 	F2                   = 59,
 	F3                   = 60,
@@ -117,27 +117,27 @@ Scancode :: enum c.int {
 	F10                  = 67,
 	F11                  = 68,
 	F12                  = 69,
-	PRINTSCREEN          = 70,
-	SCROLLLOCK           = 71,
-	PAUSE                = 72,
-	INSERT               = 73, /**< insert on PC, help on some Mac keyboards (but
+	Print_Screen         = 70,
+	Scroll_Lock          = 71,
+	Pause                = 72,
+	Insert               = 73, /**< insert on PC, help on some Mac keyboards (but
 	                           does send code 73, not 117) */
-	HOME                 = 74,
-	PAGEUP               = 75,
-	DELETE               = 76,
-	END                  = 77,
-	PAGEDOWN             = 78,
-	RIGHT                = 79,
-	LEFT                 = 80,
-	DOWN                 = 81,
-	UP                   = 82,
+	Home                 = 74,
+	Page_Up              = 75,
+	Delete               = 76,
+	End                  = 77,
+	Page_Down            = 78,
+	Right                = 79,
+	Left                 = 80,
+	Down                 = 81,
+	Up                   = 82,
 	NUMLOCKCLEAR         = 83, /**< num lock on PC, clear on Mac keyboards
 	                             */
-	KP_DIVIDE            = 84,
-	KP_MULTIPLY          = 85,
-	KP_MINUS             = 86,
-	KP_PLUS              = 87,
-	KP_ENTER             = 88,
+	KP_Divide            = 84,
+	KP_Multiply          = 85,
+	KP_Minus             = 86,
+	KP_Plus              = 87,
+	KP_Enter             = 88,
 	KP_1                 = 89,
 	KP_2                 = 90,
 	KP_3                 = 91,
@@ -148,7 +148,7 @@ Scancode :: enum c.int {
 	KP_8                 = 96,
 	KP_9                 = 97,
 	KP_0                 = 98,
-	KP_PERIOD            = 99,
+	KP_Period            = 99,
 	NONUSBACKSLASH       = 100, /**< This is the additional key that ISO
 	                       *   keyboards have over ANSI ones,
 	                       *   located between left shift and Y.
@@ -163,7 +163,7 @@ Scancode :: enum c.int {
 	POWER                = 102, /**< The USB document says this is a status flag,
 	              *   not a physical key - but some Mac keyboards
 	              *   do have a power key. */
-	KP_EQUALS            = 103,
+	KP_Equals            = 103,
 	F13                  = 104,
 	F14                  = 105,
 	F15                  = 106,
@@ -176,18 +176,18 @@ Scancode :: enum c.int {
 	F22                  = 113,
 	F23                  = 114,
 	F24                  = 115,
-	EXECUTE              = 116,
-	HELP                 = 117, /**< AL Integrated Help Center */
-	MENU                 = 118, /**< Menu (show menu) */
-	SELECT               = 119,
-	STOP                 = 120, /**< AC Stop */
-	AGAIN                = 121, /**< AC Redo/Repeat */
-	UNDO                 = 122, /**< AC Undo */
-	CUT                  = 123, /**< AC Cut */
-	COPY                 = 124, /**< AC Copy */
-	PASTE                = 125, /**< AC Paste */
-	FIND                 = 126, /**< AC Find */
-	MUTE                 = 127,
+	Execute              = 116,
+	Help                 = 117, /**< AL Integrated Help Center */
+	Menu                 = 118, /**< Menu (show menu) */
+	Select               = 119,
+	Stop                 = 120, /**< AC Stop */
+	Again                = 121, /**< AC Redo/Repeat */
+	Undo                 = 122, /**< AC Undo */
+	Cut                  = 123, /**< AC Cut */
+	Copy                 = 124, /**< AC Copy */
+	Paste                = 125, /**< AC Paste */
+	Find                 = 126, /**< AC Find */
+	Mute                 = 127,
 	VOLUMEUP             = 128,
 	VOLUMEDOWN           = 129,
 	/* not sure whether there's a reason to enable these */
