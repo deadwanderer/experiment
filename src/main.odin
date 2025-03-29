@@ -7,6 +7,7 @@ package main
 Application :: struct {
 	using platform: Platform,
 	using renderer: Renderer,
+	input:Input_System,
 }
 
 APP: ^Application = nil
@@ -20,9 +21,10 @@ main :: proc() {
 	assert(renderer_init())
 
 	debug_init()
+	input_init(&APP.input)
 
 	for !APP.quit_requested {
-		input_update()
+		input_update(&APP.input)
 
 		renderer_begin_frame()
 		renderer_draw()

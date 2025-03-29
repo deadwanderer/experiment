@@ -51,42 +51,42 @@ Event_Type :: enum u32 {
 	/* Window events */
 	/* 0x200 was SDL_WINDOWEVENT, reserve the number for sdl2-compat */
 	/* 0x201 was SYSWM, reserve the number for sdl2-compat */
-	WINDOW_SHOWN = 0x202, /**< Window has been shown */
-	WINDOW_HIDDEN, /**< Window has been hidden */
-	WINDOW_EXPOSED, /**< Window has been exposed and should be redrawn, and can be redrawn directly from event watchers for this event */
-	WINDOW_MOVED, /**< Window has been moved to data1, data2 */
-	WINDOW_RESIZED, /**< Window has been resized to data1xdata2 */
-	WINDOW_PIXEL_SIZE_CHANGED, /**< The pixel size of the window has changed to data1xdata2 */
-	WINDOW_METAL_VIEW_RESIZED, /**< The pixel size of a Metal view associated with the window has changed */
-	WINDOW_MINIMIZED, /**< Window has been minimized */
-	WINDOW_MAXIMIZED, /**< Window has been maximized */
-	WINDOW_RESTORED, /**< Window has been restored to normal size and position */
-	WINDOW_MOUSE_ENTER, /**< Window has gained mouse focus */
-	WINDOW_MOUSE_LEAVE, /**< Window has lost mouse focus */
-	WINDOW_FOCUS_GAINED, /**< Window has gained keyboard focus */
-	WINDOW_FOCUS_LOST, /**< Window has lost keyboard focus */
-	WINDOW_CLOSE_REQUESTED, /**< The window manager requests that the window be closed */
-	WINDOW_HIT_TEST, /**< Window had a hit test that wasn't SDL_HITTEST_NORMAL */
-	WINDOW_ICCPROF_CHANGED, /**< The ICC profile of the window's display has changed */
-	WINDOW_DISPLAY_CHANGED, /**< Window has been moved to display data1 */
-	WINDOW_DISPLAY_SCALE_CHANGED, /**< Window display scale has been changed */
-	WINDOW_SAFE_AREA_CHANGED, /**< The window safe area has been changed */
-	WINDOW_OCCLUDED, /**< The window has been occluded */
-	WINDOW_ENTER_FULLSCREEN, /**< The window has entered fullscreen mode */
-	WINDOW_LEAVE_FULLSCREEN, /**< The window has left fullscreen mode */
-	WINDOW_DESTROYED, /**< The window with the associated ID is being or has been destroyed. If this message is being handled
+	Window_Shown = 0x202, /**< Window has been shown */
+	Window_Hidden, /**< Window has been hidden */
+	Window_Exposed, /**< Window has been exposed and should be redrawn, and can be redrawn directly from event watchers for this event */
+	Window_Moved, /**< Window has been moved to data1, data2 */
+	Window_Resized, /**< Window has been resized to data1xdata2 */
+	Window_Pixel_Size_Changed, /**< The pixel size of the window has changed to data1xdata2 */
+	Window_Metal_View_Resized, /**< The pixel size of a Metal view associated with the window has changed */
+	Window_Minimized, /**< Window has been minimized */
+	Window_Maximized, /**< Window has been maximized */
+	Window_Restored, /**< Window has been restored to normal size and position */
+	Window_Mouse_Enter, /**< Window has gained mouse focus */
+	Window_Mouse_Leave, /**< Window has lost mouse focus */
+	Window_Focus_Gained, /**< Window has gained keyboard focus */
+	Window_Focus_Lost, /**< Window has lost keyboard focus */
+	Window_Close_Requested, /**< The window manager requests that the window be closed */
+	Window_Hit_Test, /**< Window had a hit test that wasn't SDL_HITTEST_NORMAL */
+	Window_Iccprof_Changed, /**< The ICC profile of the window's display has changed */
+	Window_Display_Changed, /**< Window has been moved to display data1 */
+	Window_Display_Scale_Changed, /**< Window display scale has been changed */
+	Window_Safe_Area_Changed, /**< The window safe area has been changed */
+	Window_Occluded, /**< The window has been occluded */
+	Window_Enter_Fullscreen, /**< The window has entered fullscreen mode */
+	Window_Leave_Fullscreen, /**< The window has left fullscreen mode */
+	Window_Destroyed, /**< The window with the associated ID is being or has been destroyed. If this message is being handled
 	                                     in an event watcher, the window handle is still valid and can still be used to retrieve any properties
 	                                     associated with the window. Otherwise, the handle has already been destroyed and all resources
 	                                     associated with it are invalid */
 	WINDOW_HDR_STATE_CHANGED, /**< Window HDR properties have changed */
-	WINDOW_FIRST = WINDOW_SHOWN,
+	WINDOW_FIRST = Window_Shown,
 	WINDOW_LAST = WINDOW_HDR_STATE_CHANGED,
 
 	/* Keyboard events */
 	Key_Down = 0x300, /**< Key pressed */
 	Key_Up, /**< Key released */
-	TEXT_EDITING, /**< Keyboard text editing (composition) */
-	TEXT_INPUT, /**< Keyboard text input */
+	Text_Editing, /**< Keyboard text editing (composition) */
+	Text_Input, /**< Keyboard text input */
 	KEYMAP_CHANGED, /**< Keymap changed due to a system event such as an
 	                                    input language or keyboard layout change. */
 	KEYBOARD_ADDED, /**< A new keyboard has been inserted into the system */
@@ -94,12 +94,12 @@ Event_Type :: enum u32 {
 	TEXT_EDITING_CANDIDATES, /**< Keyboard text editing candidates */
 
 	/* Mouse events */
-	MOUSE_MOTION = 0x400, /**< Mouse moved */
-	MOUSE_BUTTON_DOWN, /**< Mouse button pressed */
-	MOUSE_BUTTON_UP, /**< Mouse button released */
-	MOUSE_WHEEL, /**< Mouse wheel motion */
-	MOUSE_ADDED, /**< A new mouse has been inserted into the system */
-	MOUSE_REMOVED, /**< A mouse has been removed */
+	Mouse_Motion = 0x400, /**< Mouse moved */
+	Mouse_Button_Down, /**< Mouse button pressed */
+	Mouse_Button_Up, /**< Mouse button released */
+	Mouse_Wheel, /**< Mouse wheel motion */
+	Mouse_Added, /**< A new mouse has been inserted into the system */
+	Mouse_Removed, /**< A mouse has been removed */
 
 	/* Joystick events */
 	JOYSTICK_AXIS_MOTION = 0x600, /**< Joystick axis motion */

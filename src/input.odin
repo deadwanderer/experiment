@@ -95,7 +95,7 @@ Input_Controllers_State :: struct {
 	any_input_received:   bool,
 }
 
-input_update :: proc() {
+input_update :: proc(input: ^Input_System) {
 	ev: sdl.Event
 	for sdl.poll_event(&ev) {
 		debug_handle_event(&ev)
@@ -106,15 +106,55 @@ input_update :: proc() {
 			}
 		case .Key_Down:
 			{
-				#partial switch ev.key.scancode {
-				case .Escape:
-					{
-						APP.quit_requested = true
+				input.keys_down += {_input_key_from_sdl_scancode(ev.key.scancode)}
+			}
+		case .Key_Up:
+			{
+				input.keys_down -= {_input_key_from_sdl_scancode(ev.key.scancode)}
+			}
+		case .Mouse_Button_Down:
+			{
+				input.keys_down += {_input_key_from_sdl_mousebutton(ev.button.button)}
+			}
+		case .Mouse_Button_Up:
+			{
+				input.keys_down -= {_input_key_from_sdl_mousebutton(ev.button.button)}
+			}
+		case .Mouse_Motion:
+			{
+				_input_event_input_cursor_delta(
+					input,
+					{ev.motion.x, ev.motion.y},
+					{ev.motion.xrel, ev.motion.yrel},
+				)
+			}
+		case .Mouse_Wheel:
+			{
+				_input_event_cursor_wheel(input, ev.wheel.y)
+			}
+		case .Text_Input:
+			{
+				inp_str := string(ev.text.text)
+				if len(inp_str) > 0 {
+					if !((sdl.Mod_Ctrl & sdl.get_mod_state() != nil) &&
+						   (inp_str[0] == 'c' || inp_str[0] == 'v')) {
+						for ch in inp_str {
+							arr_append(&input.characters, ch)
+						}
 					}
 				}
 			}
 		}
 	}
+}
+
+_input_event_input_cursor_delta :: proc(input: ^Input_System, pos: Vec2, move: Vec2) {
+	input.input_cursor_pos = pos
+	input.input_cursor_delta = move
+}
+
+_input_event_cursor_wheel :: proc(input: ^Input_System, scroll: f32) {
+	input.scroll_delta += scroll
 }
 
 Input_Key :: enum u8 {
@@ -257,7 +297,7 @@ _input_key_from_sdl_mousebutton :: proc(mousebutton: u8) -> Input_Key {
 	}
 }
 
-_input_button_from_sdl_scancode :: proc(scancode: sdl.Scancode) -> Input_Key {
+_input_key_from_sdl_scancode :: proc(scancode: sdl.Scancode) -> Input_Key {
 	#partial switch scancode {
 	case .A:
 		return .A
